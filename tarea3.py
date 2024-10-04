@@ -9,7 +9,7 @@ from PIL import Image, ImageTk
 root = tk.Tk()
 root.title("Tarea 3")
 
-directorioImagenes = os.listdir(r'C:\Users\root\OneDrive\Imágenes\hiragana\hiragana') # C:\Users\root\OneDrive\Imágenes\hiragana\hiragana  /// /home/alumno/Imágenes/hiragana/
+directorioImagenes = os.listdir('hiragana') # C:\Users\root\OneDrive\Imágenes\hiragana\hiragana  /// /home/alumno/Imágenes/hiragana/
 print(directorioImagenes)
 imagenesSeleccionadas = random.sample(directorioImagenes, 10)
 print(imagenesSeleccionadas)
@@ -28,7 +28,7 @@ labelImagen.pack()
 def mostrarImagen():
     global indiceActual
     imagenActual = imagenesSeleccionadas[indiceActual]
-    imagenPath = os.path.join(r'C:\Users\root\OneDrive\Imágenes\hiragana\hiragana', imagenActual)
+    imagenPath = os.path.join('hiragana', imagenActual)
     img = Image.open(imagenPath)
     img = img.resize((200, 200))
     img_tk = ImageTk.PhotoImage(img)
@@ -50,12 +50,13 @@ def comprobarTraduccion():
     if indiceActual < len(imagenesSeleccionadas):
         mostrarImagen()
     else:
-        resultados = tk.Toplevel(root)
+        root.destroy()
+        resultados = tk.Tk()
         resultados.title("Resultados")
 
         if puntos < 5:
             mensaje = f"Suspenso: {puntos}/10"
-            rutaImagen = r'C:\Users\root\OneDrive\Imágenes\memes\suspenso.jpg'
+            rutaImagen = 'memes/suspenso.jpg'
             imagen = Image.open(rutaImagen)
             imagen = imagen.resize((300, 300))
             imagen_tk = ImageTk.PhotoImage(imagen)
@@ -63,7 +64,7 @@ def comprobarTraduccion():
             label_imagen.pack(padx=20, pady=20)
         elif puntos == 5:
             mensaje = f"Suficiente: {puntos}/10"
-            ruta_imagen = r'C:\Users\root\OneDrive\Imágenes\memes\suficiente.jpg'
+            ruta_imagen = 'memes/suficiente.jpg'
             imagen = Image.open(ruta_imagen)
             imagen = imagen.resize((300, 300))
             imagen_tk = ImageTk.PhotoImage(imagen)
@@ -71,7 +72,7 @@ def comprobarTraduccion():
             label_imagen.pack(padx=20, pady=20)
         elif puntos == 6:
             mensaje = f"Bien: {puntos}/10"
-            ruta_imagen = r'C:\Users\root\OneDrive\Imágenes\memes\bien.jpg'
+            ruta_imagen = 'memes/bien.jpg'
             imagen = Image.open(ruta_imagen)
             imagen = imagen.resize((300, 300))
             imagen_tk = ImageTk.PhotoImage(imagen)
@@ -79,7 +80,7 @@ def comprobarTraduccion():
             label_imagen.pack(padx=20, pady=20)
         elif puntos in [7, 8]:
             mensaje = f"Notable: {puntos}/10"
-            ruta_imagen = r'C:\Users\root\OneDrive\Imágenes\memes\notable.jpg'
+            ruta_imagen = 'memes/notable.jpg'
             imagen = Image.open(ruta_imagen)
             imagen = imagen.resize((300, 300))
             imagen_tk = ImageTk.PhotoImage(imagen)
@@ -87,7 +88,7 @@ def comprobarTraduccion():
             label_imagen.pack(padx=20, pady=20)
         else:
             mensaje = f"Sobresaliente: {puntos}/10"
-            ruta_imagen = r'C:\Users\root\OneDrive\Imágenes\memes\sobresaliente.jpg'
+            ruta_imagen = 'memes/sobresaliente.jpg'
             imagen = Image.open(ruta_imagen)
             imagen = imagen.resize((300, 300))
             imagen_tk = ImageTk.PhotoImage(imagen)
@@ -97,8 +98,8 @@ def comprobarTraduccion():
         label_resultado = tk.Label(resultados, text=mensaje, font=("Arial", 16))
         label_resultado.pack(padx=20, pady=20)
 
-        root.quit()
-        root.mainloop()
+
+        resultados.mainloop()
 
 
 botonComprobar = tk.Button(root, text="Comprobar", command=comprobarTraduccion)
